@@ -2,9 +2,11 @@ package com.example.stephen.justeatapp;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 import com.example.stephen.justeatapp.constant.Constants;
 import com.example.stephen.justeatapp.model.Restaurant;
@@ -16,6 +18,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import javax.inject.Inject;
@@ -71,6 +74,16 @@ public class MapsActivity extends FragmentActivity implements IRestaurantListVie
             mMap.setMyLocationEnabled(true);
         } catch (SecurityException e) {
             //TODO
+        }
+
+        try {
+            mMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.style_json));
+
+
+        } catch (Resources.NotFoundException e){
+            Log.e("Error", "Can't find style. Error: ", e);
         }
 
 
